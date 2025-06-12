@@ -78,10 +78,11 @@
         <h2>Detail Transaksi Penjualan</h2>
     </div>
 
+    {{-- Informasi transaksi --}}
     <div class="info">
         <p><strong>Nomor Transaksi</strong>: {{ $penjualan->id }}</p>
-        <p><strong>Kasir</strong>: {{ $penjualan->kasir->username }}</p>
-        <p><strong>Pembeli</strong>: {{ $penjualan->pembeli->nama }}</p>
+         <p><strong>Kasir</strong>: {{ $penjualan->kasir->username }}</p> {{-- Relasi ke user/kasir --}}
+        <p><strong>Pembeli</strong>: {{ $penjualan->pembeli->nama }}</p> {{-- Relasi ke pembeli --}}
         <p><strong>Tanggal Transaksi</strong>: {{ \Carbon\Carbon::parse($penjualan->tanggal_pesan)->format('d-m-Y') }}</p>
     </div>
 
@@ -99,15 +100,18 @@
             </tr>
         </thead>
         <tbody>
+            {{-- Inisialisasi variabel total --}}
             @php $tot = 0; @endphp
+
+            {{-- Looping data detail penjualan --}}
             @foreach ($detail as $d => $dd)
                 <tr>
                     <td class="center">{{ $d + 1 }}</td>
-                    <td>{{ $dd->barang->nama }}</td>
-                    <td class="center">{{ $dd->jumlah }}</td>
-                    <td class="center">Rp {{ number_format($dd->barang->harga, 0, ',', '.') }}</td>
-                    <td class="center">Rp {{ number_format($dd->total_harga, 0, ',', '.') }}</td>
-                    @php $tot += $dd->total_harga; @endphp
+                    <td>{{ $dd->barang->nama }}</td> {{-- Nama barang --}}
+                    <td class="center">{{ $dd->jumlah }}</td> {{-- Jumlah beli --}}
+                    <td class="center">Rp {{ number_format($dd->barang->harga, 0, ',', '.') }}</td> {{-- Harga satuan --}}
+                    <td class="center">Rp {{ number_format($dd->total_harga, 0, ',', '.') }}</td> {{-- Total harga --}}
+                    @php $tot += $dd->total_harga; @endphp {{-- Tambah ke total keseluruhan --}}
                 </tr>
             @endforeach
         </tbody>

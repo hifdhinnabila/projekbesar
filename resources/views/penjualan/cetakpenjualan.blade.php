@@ -82,6 +82,7 @@
 
     <hr>
 
+    {{-- Tampilkan periode jika filter tanggal tersedia --}}
     @if(isset($tgl_awal) && isset($tgl_akhir))
         <div class="period">
             Periode: {{ \Carbon\Carbon::parse($tgl_awal)->format('d-m-Y') }} s/d {{ \Carbon\Carbon::parse($tgl_akhir)->format('d-m-Y') }}
@@ -98,16 +99,18 @@
             </tr>
         </thead>
         <tbody>
+             {{-- Jika data penjualan kosong --}}
             @if($penjualan->isEmpty())
                 <tr>
                     <td colspan="4" style="text-align:center;">Tidak ada data!</td>
                 </tr>
             @else
+            {{-- Looping setiap data penjualan --}}
                 @foreach($penjualan as $d => $r)
                     <tr>
                         <td class="center">{{ $d + 1 }}</td>
-                        <td>{{ $r->kasir->username }}</td>
-                        <td>{{ $r->pembeli->nama }}</td>
+                        <td>{{ $r->kasir->username }}</td> {{-- Relasi ke tabel kasir --}}
+                        <td>{{ $r->pembeli->nama }}</td>   {{-- Relasi ke tabel pembeli --}}
                         <td class="center">{{ \Carbon\Carbon::parse($r->tanggal_pesan)->format('d-m-Y') }}</td>
                     </tr>
                 @endforeach
@@ -115,6 +118,7 @@
         </tbody>
     </table>
 
+    {{-- Footer tanggal cetak --}}
     <div class="footer">
         Dicetak pada: {{ date('d-m-Y') }}
     </div>

@@ -1,16 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- Menggunakan layout utama dari file layouts.app --}}
 
-@section('title', 'Edit Supplier')
+@section('title', 'Edit Supplier') {{-- Menentukan judul tab browser --}}
 
 @section('content')
 <div class="container mt-4">
     <div class="card">
+        {{-- Header Card --}}
         <div class="card-header">
             <div class="d-flex bd-highlight">
                 <div class="p-2 bd-highlight">
                     <h5>Form Ubah Data Supplier</h5>
                 </div>
                 <div class="ms-auto p-2 bd-highlight">
+                    {{-- Tombol kembali ke halaman index supplier --}}
                     <a class="btn btn-outline-secondary btn-sm" href="{{ route('supplier.index') }}">
                         <i class="fa-solid fa-arrow-left"></i> Kembali
                     </a>
@@ -35,7 +37,6 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Nama --}}
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama Supplier</label>
                     <input type="text" class="form-control @error('nama') is-invalid @enderror" 
@@ -45,7 +46,6 @@
                     @enderror
                 </div>
 
-                {{-- Kode Pos --}}
                 <div class="mb-3">
                     <label for="kode_pos" class="form-label">Kode Pos</label>
                     <input type="text" class="form-control @error('kode_pos') is-invalid @enderror" 
@@ -55,7 +55,6 @@
                     @enderror
                 </div>
 
-                {{-- Alamat --}}
                 <div class="mb-3">
                     <label for="alamat" class="form-label">Alamat</label>
                     <textarea class="form-control @error('alamat') is-invalid @enderror" 
@@ -65,7 +64,6 @@
                     @enderror
                 </div>
 
-                {{-- Tombol --}}
                 <button type="submit" class="btn btn-primary">Update</button>
                 <a href="{{ route('supplier.index') }}" class="btn btn-secondary">Batal</a>
             </form>

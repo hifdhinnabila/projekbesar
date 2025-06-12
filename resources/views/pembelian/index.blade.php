@@ -1,8 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- Menggunakan layout utama --}}
 
-@section('title', 'Daftar Pembelian')
+@section('title', 'Daftar Pembelian') {{-- Judul halaman --}}
 
 @push('styles')
+{{-- Menyisipkan file CSS khusus untuk halaman pembelian --}}
 <link rel="stylesheet" href="{{ asset('css/pembelian.css') }}">
 @endpush
 
@@ -38,7 +39,7 @@
         <a href="{{ route('pembelian.create') }}" class="btn btn-success"></i> Tambah Pembelian</a>
     </div>
 
-    <!-- Notifikasi -->
+    {{-- Notifikasi sukses atau error --}}
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -46,13 +47,13 @@
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    <!-- Feed Style List -->
+   {{-- Cek apakah ada data pembelian --}}
     @if($pembelians->count())
         <div class="feed-container">
             @foreach($pembelians as $item)
                 <div class="feed-item d-flex gap-3 mb-4 p-3 rounded shadow-sm">
                     <div class="feed-icon">
-                        <i class="fa fa-box fa-2x text-primary"></i>
+                        <i class="fa fa-box fa-2x text-primary"></i> {{-- Icon box --}}
                     </div>
                     <div class="feed-content flex-grow-1">
                         <div class="d-flex justify-content-between">
@@ -73,11 +74,13 @@
             @endforeach
         </div>
     @else
+    {{-- Jika tidak ada data pembelian --}}
         <div class="alert alert-warning mt-4">Tidak ada data pembelian.</div>
     @endif
 
     {{-- Pagination --}}
     <div class="d-flex justify-content-center mt-4">
+         {{-- Pagination tetap membawa query string pencarian --}}
         {{ $pembelians->appends(['search' => request('search')])->links('pagination::bootstrap-5') }}
         </div>
     </div>

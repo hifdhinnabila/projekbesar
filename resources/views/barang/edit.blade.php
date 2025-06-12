@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- Menggunakan layout utama dari file layouts.app --}}
 
-@section('title', 'Edit Barang')
+@section('title', 'Edit Barang') {{-- Menentukan judul tab browser --}}
 
 @section('content')
 <div class="container mt-4">
 
-    {{-- Header dan tombol kembali --}}
+    {{-- Header dan tombol kembali ke daftar barang --}}
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Form Ubah Data Barang</h2>
         <a href="{{ route('barang.index') }}" class="btn btn-outline-secondary btn-sm">

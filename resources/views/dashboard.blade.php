@@ -1,6 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- Menggunakan layout utama dari file layouts.app --}}
 
-@section('content')
+@section('content') {{-- Awal dari bagian konten yang akan ditampilkan di layout --}}
+
 <div class="container">
     {{-- Foto lingkaran/logo --}}
     <div class="text-center mb-4">
@@ -11,7 +12,7 @@
     <h2 class="text-center">Selamat Datang di <span style="color:#CD5C5C">Indoapril</span>!</h2>
     <p class="text-center text-muted">Manajemen stok dan transaksi kini lebih mudah ✨</p>
 
-    {{-- Stat Cards --}}
+   {{-- Kartu statistik utama (pendapatan, barang, penjualan, stok rendah) --}}
     <div class="row text-center mt-4">
         <div class="col-md-3 mb-3">
             <div class="card p-3 shadow-sm border-0">
@@ -22,6 +23,7 @@
                 <h5 class="text-success">Rp {{ number_format($totalPendapatan, 0, ',', '.') }}</h5>
             </div>
         </div>
+        {{-- Jumlah barang --}}
         <div class="col-md-3 mb-3">
             <div class="card p-3 shadow-sm border-0">
                 <div class="text-primary mb-2">
@@ -31,6 +33,7 @@
                 <h5 class="text-primary">{{ $jumlahBarang }}</h5>
             </div>
         </div>
+        {{-- Jumlah penjualan --}}
         <div class="col-md-3 mb-3">
             <div class="card p-3 shadow-sm border-0">
                 <div class="text-warning mb-2">
@@ -40,6 +43,7 @@
                 <h5 class="text-warning">{{ $jumlahPenjualan }}</h5>
             </div>
         </div>
+        {{-- Jumlah barang stok rendah--}}
         <div class="col-md-3 mb-3">
             <div class="card p-3 shadow-sm border-0">
                 <div class="text-danger mb-2">
@@ -59,12 +63,14 @@
                 <h5 class="text-success">Rp {{ number_format($rupiahHariIni, 0, ',', '.') }}</h5>
             </div>
         </div>
+        {{-- Barang terjual hari ini --}}
         <div class="col-md-4 mb-3">
             <div class="card p-3 shadow-sm border-0 bg-light">
                 <h6 class="text-muted">Barang Terjual Hari Ini</h6>
                 <h5 class="text-info">{{ $barangHariIni }}</h5>
             </div>
         </div>
+        {{-- Jumlah transaksi hari ini --}}
         <div class="col-md-4 mb-3">
             <div class="card p-3 shadow-sm border-0 bg-light">
                 <h6 class="text-muted">Transaksi Hari Ini</h6>
@@ -87,6 +93,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{-- Menampilkan data barang yang stoknya rendah --}}
                     @forelse ($barangStokRendah as $index => $barang)
                         <tr>
                             <td>{{ $index + 1 }}</td>

@@ -115,21 +115,24 @@
     </style>
 </head>
 <body>
+    <!--kartu form login-->
     <div class="login-card">
         <h2 class="text-center login-title">Login</h2>
         <p class="text-center text-muted mb-4">Silakan masuk dengan username dan password</p>
+        <!-- Form login menggunakan method POST -->
         <form method="POST" action="{{url('login')}}">
-            @csrf
+            @csrf <!-- Token CSRF untuk keamanan -->
+            <!-- Input username -->
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" name="username" required>
             </div>
-           <!-- Ganti bagian ini di dalam <div class="mb-3 position-relative"> -->
-<div class="mb-3 position-relative">
-    <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password" name="password" required>
+            <!-- Input password + toggle show/hide -->
+            <div class="mb-3 position-relative">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
     
-    <!-- SVG toggle -->
+     <!-- Tombol ikon show/hide password -->
     <span class="toggle-password" onclick="togglePassword()" style="position: absolute; top: 38px; right: 15px; cursor: pointer;">
         <!-- Mata Terbuka -->
         <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#CD5C5C" viewBox="0 0 24 24">
@@ -147,6 +150,7 @@
             <button type="submit" class="btn btn-pink w-100">Login Sekarang</button>
         </form>
 
+        <!-- Menampilkan pesan alert dari session jika ada -->
         @if (Session::has('pesan'))
             <div class="alert mt-3 {{ Session::get('alert-class', 'alert-info') }} alert-dismissible fade show" role="alert">
                 {{ Session::get('pesan') }}
@@ -156,23 +160,26 @@
 
         <p class="text-center mt-3" style="font-size: 0.9rem;">Terima kasih sudah mampir di halaman Indoapril kami</p>
     </div>
+
+<!-- Script untuk toggle show/hide password -->
 <script>
     function togglePassword() {
         const passwordInput = document.getElementById('password');
         const eyeOpen = document.getElementById('eyeOpen');
         const eyeClosed = document.getElementById('eyeClosed');
 
+        // Jika password disembunyikan, tampilkan
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
             eyeOpen.style.display = 'none';
             eyeClosed.style.display = 'inline';
         } else {
+            // Jika sudah terlihat, sembunyikan lagi
             passwordInput.type = 'password';
             eyeOpen.style.display = 'inline';
             eyeClosed.style.display = 'none';
         }
     }
 </script>
-
 </body>
 </html>

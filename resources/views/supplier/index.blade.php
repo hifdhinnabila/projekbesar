@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- Menggunakan layout utama dari file layouts.app --}}
 
-@section('title', 'Daftar Supplier')
+@section('title', 'Daftar Supplier') {{-- Menentukan judul tab browser --}}
 
-@section('content')
+@section('content') 
 <div class="container mt-4">
 
     {{-- Header & Pencarian --}}
@@ -14,7 +14,6 @@
         </form>
     </div>
 
-    {{-- Tombol Tambah --}}
     <div class="mb-3">
         <a href="{{ route('supplier.create') }}" class="btn btn-primary">Tambah Supplier</a>
     </div>
@@ -24,7 +23,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    {{-- Accordion List --}}
+    {{-- Accordion berisi daftar supplier --}}
     @if($suppliers->count())
     <div class="accordion" id="supplierAccordion">
         @foreach($suppliers as $index => $supplier)
@@ -34,6 +33,7 @@
                         {{ $loop->iteration + ($suppliers->currentPage() - 1) * $suppliers->perPage() }}. {{ $supplier->nama }}
                     </button>
                 </h2>
+                {{-- Konten yang muncul saat accordion dibuka --}}
                 <div id="collapse-{{ $supplier->id }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ $supplier->id }}" data-bs-parent="#supplierAccordion">
                     <div class="accordion-body">
                         <p><strong>Alamat:</strong> {{ $supplier->alamat }}</p>

@@ -7,23 +7,26 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Menjalankan migrasi: membuat tabel logins.
      */
     public function up(): void
     {
         Schema::create('logins', function (Blueprint $table) {
-            $table->id();
-            $table->string('username')->unique();
-            $table->string('password');
-            $table->timestamps();
+            $table->id(); 
+            
+            $table->string('username')->unique(); // Kolom username, harus unik agar tidak ada duplikat akun
+            
+            $table->string('password'); // Kolom password (disarankan disimpan dalam bentuk hash)
+            
+            $table->timestamps(); 
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Membalik migrasi: menghapus tabel logins jika rollback.
      */
     public function down(): void
     {
-        Schema::dropIfExists('logins');
+        Schema::dropIfExists('logins'); // Menghapus tabel logins jika migrasi dibatalkan
     }
 };

@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- Menggunakan layout utama dari file layouts.app --}}
 
-@section('title', 'Data Pembeli')
+@section('title', 'Data Pembeli') {{-- Menentukan judul tab browser --}}
 
 @section('content')
 <div class="container mt-4">
@@ -24,10 +24,11 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    {{-- List Media Style --}}
+    {{-- Daftar Pembeli, ditampilkan dalam bentuk card --}}
     @forelse($pembelis as $pembeli)
         <div class="card mb-3 shadow-sm">
             <div class="card-body d-flex">
+                {{-- Inisial Nama sebagai avatar --}}
                 <div class="me-3">
                     <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
                         {{ strtoupper(substr($pembeli->nama, 0, 1)) }}
@@ -49,11 +50,13 @@
                 </div>
             </div>
         </div>
+
+    {{-- Jika tidak ada data pembeli --}}
     @empty
         <p class="text-muted">Tidak ada data pembeli.</p>
     @endforelse
 
-    {{-- Pagination --}}
+    {{-- Pagination dengan mempertahankan parameter pencarian --}}
     <div class="d-flex justify-content-center mt-4">
         {{ $pembelis->appends(['search' => request('search')])->links('pagination::bootstrap-5') }}
         </div>

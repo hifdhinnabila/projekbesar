@@ -7,24 +7,28 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Menjalankan migrasi: Membuat tabel suppliers.
      */
     public function up(): void
     {
         Schema::create('suppliers', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('alamat')->nullable();
-            $table->string('kode_pos')->nullable();
+            $table->id(); 
+
+            $table->string('nama'); // Nama supplier
+
+            $table->string('alamat')->nullable(); // Alamat supplier, boleh kosong/null
+
+            $table->string('kode_pos')->nullable(); // Kode pos, boleh kosong/null
+
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Mengembalikan migrasi: Menghapus tabel suppliers jika rollback.
      */
     public function down(): void
     {
-        Schema::dropIfExists('suppliers');
+        Schema::dropIfExists('suppliers'); // Hapus tabel saat rollback
     }
 };

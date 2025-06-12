@@ -7,25 +7,31 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Menjalankan migrasi: Membuat tabel detailpenjualans.
      */
     public function up(): void
     {
         Schema::create('detailpenjualans', function (Blueprint $table) {
-            $table->id();
+            $table->id(); 
+
+            // Relasi ke tabel penjualans, jika penjualannya dihapus, data detail ini juga ikut terhapus
             $table->foreignId('penjualan_id')->constrained()->onDelete('cascade');
+
+            // Relasi ke tabel barangs, jika barang dihapus, data detail ini juga ikut terhapus
             $table->foreignId('barang_id')->constrained()->onDelete('cascade');
-            $table->integer('jumlah');
-            $table->integer('total_harga')->default(0);
-            $table->timestamps();
+
+            $table->integer('jumlah'); // Jumlah barang yang dibeli dalam transaksi
+            $table->integer('total_harga')->default(0); // Total harga untuk item ini (jumlah * harga satuan), default 0
+
+            $table->timestamps(); 
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Mengembalikan migrasi: Menghapus tabel detailpenjualans jika rollback.
      */
     public function down(): void
     {
-        Schema::dropIfExists('detailpenjualans');
+        Schema::dropIfExists('detailpenjualans'); // Menghapus tabel saat rollback
     }
 };

@@ -1,11 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- Menggunakan layout utama dari file layouts.app --}}
 
-@section('title', 'Edit Pembeli')
+@section('title', 'Edit Pembeli') {{-- Menentukan judul tab browser --}}
 
 @section('content')
 <div class="container">
     <h3 class="mb-3">Edit Pembeli</h3>
 
+    {{-- Menampilkan error validasi jika ada --}}
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -17,8 +18,8 @@
     @endif
 
     <form action="{{ route('pembeli.update', $pembeli->id) }}" method="POST">
-        @csrf
-        @method('PUT')
+        @csrf {{-- Token keamanan --}}
+        @method('PUT') {{-- Method spoofing agar sesuai dengan method PUT --}}
 
         <div class="mb-3">
             <label for="nama" class="form-label">Nama</label>

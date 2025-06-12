@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- Menggunakan layout utama dari file layouts.app --}}
 
-@section('title', 'Daftar Penjualan')
+@section('title', 'Daftar Penjualan') {{-- Menentukan judul tab browser --}}
 
 @section('content')
-    @include('message.message')
+    @include('message.message') {{-- Menampilkan notifikasi pesan (sukses/gagal) --}}
     <div class="card mt-4">
         <div class="card-header">
             <div class="d-flex bd-highlight">
@@ -16,13 +16,14 @@
             </div>
         </div>
         <div class="card-body">
+            <!-- Form Filter Tanggal -->
             <form action="" method="get">
-               <div class="row align-items-center">
-    <div class="col-md-3">
-        <input type="date" name="tgl_awal" class="form-control">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                <input type="date" name="tgl_awal" class="form-control">
                 </div>
                 <div class="col-md-1 text-center">
-                    <span>s/d</span>
+                    <span>s/d</span> {{-- Separator tanggal --}}
                 </div>
                 <div class="col-md-3">
                     <input type="date" name="tgl_akhir" class="form-control">
@@ -32,7 +33,7 @@
                 </div>
                 <div class="col-md-3 d-flex flex-row-reverse bd-highlight">
                     <a href="{{ url('cetak/penjualan') }}" target="_blank" class="btn btn-outline-danger bd-highlight">
-                        <i class="fa-solid fa-file-pdf"></i> Cetak PDF
+                        <i class="fa-solid fa-file-pdf"></i> Cetak PDF {{-- Tombol cetak PDF --}}
                     </a>
                 </div>
             </div>
@@ -55,10 +56,10 @@
                     @else
                         @foreach($penjualans as $d => $r)
                             <tr>
-                                <td>{{ $d + 1 }}</td>
-                                <td>{{ $r->kasir->username }}</td>
-                                <td>{{ $r->pembeli->nama }}</td>
-                                <td>{{ $r->tanggal_pesan }}</td>
+                                <td>{{ $d + 1 }}</td> {{-- Nomor urut --}}
+                                <td>{{ $r->kasir->username }}</td> {{-- Nama kasir dari relasi --}}
+                                <td>{{ $r->pembeli->nama }}</td> {{-- Nama pembeli dari relasi --}}
+                                <td>{{ $r->tanggal_pesan }}</td> {{-- Tanggal transaksi --}}
                                 <td>
                                     <form action="{{ url('penjualan/' . $r->id) }}" method="POST">
                                         @csrf

@@ -7,24 +7,30 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Menjalankan migrasi: Membuat tabel penjualans.
      */
     public function up(): void
     {
         Schema::create('penjualans', function (Blueprint $table) {
-            $table->id();
+            $table->id(); 
+
+            // Relasi ke tabel pembelis (pembeli_id), jika pembeli dihapus maka data penjualan ikut dihapus
             $table->foreignId('pembeli_id')->constrained()->onDelete('cascade');
+
+            // Relasi ke tabel logins sebagai kasir_id, mengacu pada user login yang melakukan transaksi
             $table->foreignId('kasir_id')->constrained('logins')->onDelete('cascade');
-            $table->date('tanggal_pesan');
-            $table->timestamps();
+
+            $table->date('tanggal_pesan'); // Menyimpan tanggal transaksi dilakukan
+
+            $table->timestamps(); 
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Mengembalikan migrasi: Menghapus tabel penjualans jika rollback.
      */
     public function down(): void
     {
-        Schema::dropIfExists('penjualans');
+        Schema::dropIfExists('penjualans'); // Menghapus tabel saat rollback
     }
 };

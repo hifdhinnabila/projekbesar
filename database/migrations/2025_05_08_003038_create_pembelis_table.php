@@ -7,25 +7,30 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Menjalankan migrasi: Membuat tabel pembelis.
      */
     public function up(): void
     {
         Schema::create('pembelis', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
-            $table->text('alamat')->nullable();
-            $table->string('no_hp')->unique();
-            $table->timestamps();
+            $table->id(); 
+
+            $table->string('nama'); // Nama pembeli
+
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']); // Pilihan gender hanya antara Laki-laki atau Perempuan
+
+            $table->text('alamat')->nullable(); // Alamat pembeli (boleh kosong/null)
+
+            $table->string('no_hp')->unique(); // Nomor HP unik, tidak boleh sama dengan pembeli lain
+
+            $table->timestamps(); 
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Membalik migrasi: Menghapus tabel pembelis jika rollback.
      */
     public function down(): void
     {
-        Schema::dropIfExists('pembelis');
+        Schema::dropIfExists('pembelis'); // Drop tabel jika migrasi dibatalkan
     }
 };

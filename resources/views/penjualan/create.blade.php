@@ -1,9 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- Menggunakan layout utama dari file layouts.app --}}
 
-@section('title', 'Tambah Penjualan')
+@section('title', 'Tambah Penjualan') {{-- Menentukan judul tab browser --}}
 
 @section('content')
 @if (session('error'))
+{{-- Tampilkan notifikasi error jika ada session 'error' --}}
     <div class="alert alert-danger mt-3">
         {{ session('error') }}
     </div>
@@ -27,6 +28,7 @@
                     @endforeach
                 </select>
                 @error('pembeli_id')
+                {{-- Validasi error pembeli --}}
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
@@ -60,6 +62,7 @@
                         </div>
                     </div>
 
+                    {{-- Tabel barang yang sudah ditambahkan --}}
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -85,16 +88,20 @@
                     <h5>3. Pembayaran</h5>
                 </div>
                 <div class="card-body">
+                     {{-- Input tersembunyi untuk total harga dan jumlah barang --}}
                     <input type="hidden" name="total_harga" id="totalharga" value="0">
                     <input type="hidden" id="jmlbarangdibeli" value="0">
 
+                      {{-- Tampilan total harga --}}
                     <h6>Total Harga</h6>
                     <h3 class="text-success" id="vtotalharga">Rp. 0</h3>
 
+                    {{-- Input bayar dari pembeli --}}
                     <h6>Bayar</h6>
                     <input type="number" name="bayar" class="form-control bayar" required value="{{ old('bayar') }}">
 
                     <hr>
+                    {{-- Kembalian otomatis --}}
                     <h6>Kembalian</h6>
                     <h3 class="text-secondary" id="vkembalian">Rp. 0</h3>
 
@@ -107,8 +114,10 @@
 @endsection
 
 @push('scripts')
+{{-- jQuery --}}
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
+// Fungsi format angka ke format Rupiah
 function formatRupiah(angka, prefix){
     var number_string = angka.toString().replace(/[^,\d]/g, '').toString(),
         split    = number_string.split(','),
@@ -125,6 +134,7 @@ function formatRupiah(angka, prefix){
     return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 }
 
+// Ketika tombol tambah barang ditekan
 $(document).on('click', '.addbarang', function () {
     let barangId = $('.barang_id').val();
     let jumlah = parseInt($('.jumlahdibeli').val() || 0);
@@ -133,10 +143,12 @@ $(document).on('click', '.addbarang', function () {
         return;
     }
 
+    // Ambil data barang dari API
     $.getJSON('/api/barang/' + barangId, function (barang) {
         let subtotal = barang.harga * jumlah;
         let totalHarga = parseInt($('#totalharga').val()) + subtotal;
 
+        // Tambahkan ke tabel barang
         $('#innerBarang').append(`
             <tr class="databrg">
                 <td>
@@ -161,19 +173,23 @@ $(document).on('click', '.addbarang', function () {
             </tr>
         `);
 
+        // Update total harga
         $('#totalharga').val(totalHarga);
         $('#vtotalharga').text('Rp. ' + formatRupiah(totalHarga));
         $('#jmlbarangdibeli').val(parseInt($('#jmlbarangdibeli').val()) + 1);
 
+        // Reset input
         $('.barang_id').val('');
         $('.jumlahdibeli').val('');
     });
 });
 
+// Hapus baris barang
 $(document).on('click', '.hapusbarang', function () {
     let harga = parseInt($(this).data('harga'));
     $(this).closest('tr').remove();
 
+    // Update total harga
     let totalHarga = parseInt($('#totalharga').val()) - harga;
     $('#totalharga').val(totalHarga);
     $('#vtotalharga').text('Rp. ' + formatRupiah(totalHarga));
@@ -181,6 +197,7 @@ $(document).on('click', '.hapusbarang', function () {
     $('#jmlbarangdibeli').val(parseInt($('#jmlbarangdibeli').val()) - 1);
 });
 
+// Hitung kembalian saat bayar diinput
 $(document).on('input', '.bayar', function () {
     let bayar = parseInt($(this).val() || 0);
     let total = parseInt($('#totalharga').val());

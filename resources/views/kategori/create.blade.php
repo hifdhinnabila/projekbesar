@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app')   {{-- Menggunakan layout utama dari file layouts.app --}}
+
+@section('title', 'Daftar Kategori') {{-- Menentukan judul tab browser --}}
 
 @section('title', 'Tambah Kategori')
 
@@ -7,6 +9,7 @@
     {{-- Header --}}
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="mb-0">Form Tambah Kategori</h4>
+        {{-- Tombol kembali ke halaman daftar kategori --}}
         <a class="btn btn-outline-secondary btn-sm" href="{{ route('kategori.index') }}">
             <i class="fa-solid fa-arrow-left"></i> Kembali
         </a>

@@ -1,10 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- Menggunakan layout utama dari file layouts.app --}}
 
-@section('title', 'Tambah Supplier')
+@section('title', 'Tambah Supplier') {{-- Menentukan judul tab browser --}}
 
 @section('content')
 <div class="container mt-4">
     <div class="card">
+        {{-- Header Card --}}
         <div class="card-header">
             <div class="d-flex bd-highlight">
                 <div class="p-2 bd-highlight">
@@ -34,7 +35,6 @@
             <form action="{{ route('supplier.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                {{-- Nama --}}
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama Supplier</label>
                     <input type="text" class="form-control @error('nama') is-invalid @enderror"
@@ -44,7 +44,6 @@
                     @enderror
                 </div>
 
-                {{-- Kode Pos --}}
                 <div class="mb-3">
                     <label for="kode_pos" class="form-label">Kode Pos</label>
                     <input type="text" class="form-control @error('kode_pos') is-invalid @enderror"
@@ -54,7 +53,6 @@
                     @enderror
                 </div>
 
-                {{-- Alamat --}}
                 <div class="mb-3">
                     <label for="alamat" class="form-label">Alamat</label>
                     <textarea class="form-control @error('alamat') is-invalid @enderror"
@@ -64,7 +62,6 @@
                     @enderror
                 </div>
 
-                {{-- Tombol --}}
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{ route('supplier.index') }}" class="btn btn-secondary">Batal</a>
             </form>

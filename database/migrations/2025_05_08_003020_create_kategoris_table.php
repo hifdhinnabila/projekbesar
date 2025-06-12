@@ -7,22 +7,24 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Menjalankan migrasi: membuat tabel kategoris.
      */
     public function up(): void
     {
         Schema::create('kategoris', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama')->unique();
-            $table->timestamps();
+            $table->id(); 
+            
+            $table->string('nama')->unique(); // Nama kategori, harus unik agar tidak ada duplikat
+            
+            $table->timestamps(); 
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Membalik migrasi: menghapus tabel kategoris jika rollback.
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategoris');
+        Schema::dropIfExists('kategoris'); // Menghapus tabel kategoris jika dibatalkan
     }
 };
